@@ -64,6 +64,7 @@ namespace Trivia
 			try
 			{
 				var path = "../../Change"+ CHANGE_ITERATION;
+				//var path = "../../GoldenMaster";
 				Directory.CreateDirectory(path);
 				_ostrm = new FileStream(string.Format("{2}/Game{0}_{1}.txt", index, seed, path), FileMode.OpenOrCreate, FileAccess.Write);
 				_writer = new StreamWriter(_ostrm);
