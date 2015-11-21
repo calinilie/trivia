@@ -203,6 +203,7 @@ namespace UglyTrivia
                     AnswerCorrectlyAndIncreaseGoldCoinsAmount();
 
                     bool winner = didPlayerWin();
+
                     NextPlayersTurn();
 
                     return winner;
@@ -246,8 +247,7 @@ namespace UglyTrivia
             _actionHandler(_players[_currentPlayer] + " was sent to the penalty box");
             _inPenaltyBox[_currentPlayer] = true;
 
-            _currentPlayer++;
-            if (_currentPlayer == _players.Count) _currentPlayer = 0;
+            NextPlayersTurn();
             return true;
         }
 
