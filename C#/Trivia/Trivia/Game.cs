@@ -222,7 +222,7 @@ namespace UglyTrivia
             }
             else
             {
-                _actionHandler("Answer was corrent!!!!");
+                _actionHandler("Answer was correct!!!!");
                 _goldCoinPurses[_currentPlayer]++;
                 _actionHandler(_players[_currentPlayer]
                         + " now has "
