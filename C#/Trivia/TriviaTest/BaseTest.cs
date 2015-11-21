@@ -11,7 +11,7 @@ namespace TriviaTest
 		private const string ONLY_PLAYER = "Calin";
 
 		[TestInitialize]
-		public void Setup()
+		public virtual void Setup()
 		{
 			Game = new GameConfiguration()
 				.StartGame(

@@ -203,15 +203,13 @@ namespace UglyTrivia
                     AnswerCorrectlyAndIncreaseGoldCoinsAmount();
 
                     bool winner = didPlayerWin();
-                    _currentPlayer++;
-                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
+                    NextPlayersTurn();
 
                     return winner;
                 }
                 else
                 {
-                    _currentPlayer++;
-                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
+                   NextPlayersTurn();
                     return true;
                 }
             }
@@ -220,12 +218,17 @@ namespace UglyTrivia
                 AnswerCorrectlyAndIncreaseGoldCoinsAmount();
 
                 bool winner = didPlayerWin();
-                _currentPlayer++;
-                if (_currentPlayer == _players.Count) _currentPlayer = 0;
-
+                
+				NextPlayersTurn();
                 return winner;
             }
         }
+
+	    private void NextPlayersTurn()
+	    {
+			_currentPlayer++;
+			if (_currentPlayer == _players.Count) _currentPlayer = 0;
+	    }
 
 	    private void AnswerCorrectlyAndIncreaseGoldCoinsAmount()
 	    {
