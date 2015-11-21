@@ -8,9 +8,9 @@ namespace Trivia
 {
 	public class GameConfiguration
 	{
-		public Game StartGame(Action<string> eventDelegate, params string[] players)
+		public Game StartGame(Action<string> eventHandler, params string[] players)
 		{
-			Game game = new Game(eventDelegate);
+			Game game = new Game(eventHandler);
 			foreach (var player in players)
 			{
 				game.add(player);
