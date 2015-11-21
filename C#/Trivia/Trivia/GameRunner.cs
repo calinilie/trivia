@@ -38,7 +38,7 @@ namespace Trivia
 						}
 						else
 						{
-							_notAWinner = aGame.wasCorrectlyAnswered();
+							_notAWinner = aGame.GiveCorrectAnswerAndCheckIfNOTWinner();
 						}
 					} while (_notAWinner);
 				}

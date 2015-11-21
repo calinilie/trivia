@@ -6,26 +6,24 @@ using UglyTrivia;
 namespace TriviaTest
 {
 	[TestClass]
-	public class CorrectAnswerTest
+	public class CorrectAnswerTest : BaseTest
 	{
 		[TestMethod]
-		public void OnePlayer()
+		public void GoldCoinsIncrease()
 		{
-			Game game = new GameConfiguration().StartGame(delegate { }, "player");
-
-			var actual = game.wasCorrectlyAnswered();
-
-			Assert.AreEqual(true, actual);
+			Game.GiveCorrectAnswerAndCheckIfNOTWinner();
+			
+			Assert.AreEqual(1, Game.GoldCoinPurses[OnlyPlayerIndex]);
 		}
 
 		[TestMethod]
-		public void ThreePlayers()
+		public void WinnerAfterOneCorrectAnswer()
 		{
-			Game game = new GameConfiguration().StartGame(delegate { }, "p1", "p2", "p3");
+			Assert.AreEqual(0, Game.GoldCoinPurses[OnlyPlayerIndex]);
 
-			var actual = game.wasCorrectlyAnswered();
+			var notaWinner = Game.GiveCorrectAnswerAndCheckIfNOTWinner();
 
-			Assert.AreEqual(true, actual);
+			Assert.IsTrue(notaWinner);
 		}
 	}
 }

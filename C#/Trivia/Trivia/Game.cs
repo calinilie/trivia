@@ -7,19 +7,21 @@ namespace UglyTrivia
 {
     public class Game
     {
+	    readonly List<string> _players = new List<string>();
 
-
-        List<string> players = new List<string>();
-
-        int[] places = new int[6];
+	    readonly int[] _places = new int[6];
 		public int[] Places
 		{
-			get { return places; }
+			get { return _places; }
 		}
 
-        int[] purses = new int[6];
+	    readonly int[] _goldCoinPurses = new int[6];
+		public int[] GoldCoinPurses
+		{
+			get { return _goldCoinPurses; }
+		}
 
-        bool[] _inPenaltyBox = new bool[6];
+	    readonly bool[] _inPenaltyBox = new bool[6];
 		public bool[] InPenaltyBox
 		{
 			get { return _inPenaltyBox; }
@@ -95,24 +97,24 @@ namespace UglyTrivia
         {
 
 
-            players.Add(playerName);
-            places[howManyPlayers()] = 0;
-            purses[howManyPlayers()] = 0;
+            _players.Add(playerName);
+            _places[howManyPlayers()] = 0;
+            _goldCoinPurses[howManyPlayers()] = 0;
             _inPenaltyBox[howManyPlayers()] = false;
 
             _actionHandler(playerName + " was added");
-            _actionHandler("They are player number " + players.Count);
+            _actionHandler("They are player number " + _players.Count);
             return true;
         }
 
         public int howManyPlayers()
         {
-            return players.Count;
+            return _players.Count;
         }
 
         public void Roll(int roll)
         {
-            _actionHandler(players[_currentPlayer] + " is the current player");
+            _actionHandler(_players[_currentPlayer] + " is the current player");
             _actionHandler("They have rolled a " + roll);
 
             if (_inPenaltyBox[_currentPlayer])
@@ -121,31 +123,31 @@ namespace UglyTrivia
                 {
                     _isGettingOutOfPenaltyBox = true;
 
-                    _actionHandler(players[_currentPlayer] + " is getting out of the penalty box");
-                    places[_currentPlayer] = places[_currentPlayer] + roll;
-                    if (places[_currentPlayer] > 11) places[_currentPlayer] = places[_currentPlayer] - 12;
+                    _actionHandler(_players[_currentPlayer] + " is getting out of the penalty box");
+                    _places[_currentPlayer] = _places[_currentPlayer] + roll;
+                    if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
 
-                    _actionHandler(players[_currentPlayer]
+                    _actionHandler(_players[_currentPlayer]
                             + "'s new location is "
-                            + places[_currentPlayer]);
+                            + _places[_currentPlayer]);
                     _actionHandler("The category is " + currentCategory());
                     askQuestion();
                 }
                 else
                 {
-                    _actionHandler(players[_currentPlayer] + " is not getting out of the penalty box");
+                    _actionHandler(_players[_currentPlayer] + " is not getting out of the penalty box");
                     _isGettingOutOfPenaltyBox = false;
                 }
 
             }
             else
             {
-                places[_currentPlayer] = places[_currentPlayer] + roll;
-                if (places[_currentPlayer] > 11) places[_currentPlayer] = places[_currentPlayer] - 12;
+                _places[_currentPlayer] = _places[_currentPlayer] + roll;
+                if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
 
-                _actionHandler(players[_currentPlayer]
+                _actionHandler(_players[_currentPlayer]
                         + "'s new location is "
-                        + places[_currentPlayer]);
+                        + _places[_currentPlayer]);
                 _actionHandler("The category is " + currentCategory());
                 askQuestion();
             }
@@ -179,60 +181,57 @@ namespace UglyTrivia
 
         private String currentCategory()
         {
-            if (places[_currentPlayer] == 0) return "Pop";
-            if (places[_currentPlayer] == 4) return "Pop";
-            if (places[_currentPlayer] == 8) return "Pop";
-            if (places[_currentPlayer] == 1) return "Science";
-            if (places[_currentPlayer] == 5) return "Science";
-            if (places[_currentPlayer] == 9) return "Science";
-            if (places[_currentPlayer] == 2) return "Sports";
-            if (places[_currentPlayer] == 6) return "Sports";
-            if (places[_currentPlayer] == 10) return "Sports";
+            if (_places[_currentPlayer] == 0) return "Pop";
+            if (_places[_currentPlayer] == 4) return "Pop";
+            if (_places[_currentPlayer] == 8) return "Pop";
+            if (_places[_currentPlayer] == 1) return "Science";
+            if (_places[_currentPlayer] == 5) return "Science";
+            if (_places[_currentPlayer] == 9) return "Science";
+            if (_places[_currentPlayer] == 2) return "Sports";
+            if (_places[_currentPlayer] == 6) return "Sports";
+            if (_places[_currentPlayer] == 10) return "Sports";
             return "Rock";
         }
 
-        public bool wasCorrectlyAnswered()
+	    // ReSharper disable once InconsistentNaming
+        public bool GiveCorrectAnswerAndCheckIfNOTWinner()
         {
             if (_inPenaltyBox[_currentPlayer])
             {
                 if (_isGettingOutOfPenaltyBox)
                 {
                     _actionHandler("Answer was correct!!!!");
-                    purses[_currentPlayer]++;
-                    _actionHandler(players[_currentPlayer]
+                    _goldCoinPurses[_currentPlayer]++;
+                    _actionHandler(_players[_currentPlayer]
                             + " now has "
-                            + purses[_currentPlayer]
+                            + _goldCoinPurses[_currentPlayer]
                             + " Gold Coins.");
 
                     bool winner = didPlayerWin();
                     _currentPlayer++;
-                    if (_currentPlayer == players.Count) _currentPlayer = 0;
+                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
 
                     return winner;
                 }
                 else
                 {
                     _currentPlayer++;
-                    if (_currentPlayer == players.Count) _currentPlayer = 0;
+                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
                     return true;
                 }
-
-
-
             }
             else
             {
-
                 _actionHandler("Answer was corrent!!!!");
-                purses[_currentPlayer]++;
-                _actionHandler(players[_currentPlayer]
+                _goldCoinPurses[_currentPlayer]++;
+                _actionHandler(_players[_currentPlayer]
                         + " now has "
-                        + purses[_currentPlayer]
+                        + _goldCoinPurses[_currentPlayer]
                         + " Gold Coins.");
 
                 bool winner = didPlayerWin();
                 _currentPlayer++;
-                if (_currentPlayer == players.Count) _currentPlayer = 0;
+                if (_currentPlayer == _players.Count) _currentPlayer = 0;
 
                 return winner;
             }
@@ -241,19 +240,19 @@ namespace UglyTrivia
         public bool wrongAnswer()
         {
             _actionHandler("Question was incorrectly answered");
-            _actionHandler(players[_currentPlayer] + " was sent to the penalty box");
+            _actionHandler(_players[_currentPlayer] + " was sent to the penalty box");
             _inPenaltyBox[_currentPlayer] = true;
 
             _currentPlayer++;
-            if (_currentPlayer == players.Count) _currentPlayer = 0;
+            if (_currentPlayer == _players.Count) _currentPlayer = 0;
             return true;
         }
 
-
         private bool didPlayerWin()
         {
-            return !(purses[_currentPlayer] == 6);
+            return _goldCoinPurses[_currentPlayer] != 6;
         }
+
     }
 
 }
