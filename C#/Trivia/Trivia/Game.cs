@@ -200,12 +200,7 @@ namespace UglyTrivia
             {
                 if (_isGettingOutOfPenaltyBox)
                 {
-                    _actionHandler("Answer was correct!!!!");
-                    _goldCoinPurses[_currentPlayer]++;
-                    _actionHandler(_players[_currentPlayer]
-                            + " now has "
-                            + _goldCoinPurses[_currentPlayer]
-                            + " Gold Coins.");
+                    AnswerCorrectlyAndIncreaseGoldCoinsAmount();
 
                     bool winner = didPlayerWin();
                     _currentPlayer++;
@@ -222,12 +217,7 @@ namespace UglyTrivia
             }
             else
             {
-                _actionHandler("Answer was correct!!!!");
-                _goldCoinPurses[_currentPlayer]++;
-                _actionHandler(_players[_currentPlayer]
-                        + " now has "
-                        + _goldCoinPurses[_currentPlayer]
-                        + " Gold Coins.");
+                AnswerCorrectlyAndIncreaseGoldCoinsAmount();
 
                 bool winner = didPlayerWin();
                 _currentPlayer++;
@@ -236,6 +226,16 @@ namespace UglyTrivia
                 return winner;
             }
         }
+
+	    private void AnswerCorrectlyAndIncreaseGoldCoinsAmount()
+	    {
+			_actionHandler("Answer was correct!!!!");
+			_goldCoinPurses[_currentPlayer]++;
+			_actionHandler(_players[_currentPlayer]
+					+ " now has "
+					+ _goldCoinPurses[_currentPlayer]
+					+ " Gold Coins.");
+	    }
 
         public bool wrongAnswer()
         {

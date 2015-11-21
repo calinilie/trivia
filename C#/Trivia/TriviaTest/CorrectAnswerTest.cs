@@ -17,7 +17,7 @@ namespace TriviaTest
 		}
 
 		[TestMethod]
-		public void WinnerAfterOneCorrectAnswer()
+		public void WonAfterOneCorrectAnswer()
 		{
 			Assert.AreEqual(0, Game.GoldCoinPurses[OnlyPlayerIndex]);
 
@@ -25,5 +25,7 @@ namespace TriviaTest
 
 			Assert.IsTrue(notaWinner);
 		}
+
+
 	}
 }
