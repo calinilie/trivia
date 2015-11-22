@@ -2,6 +2,9 @@
 
 namespace Trivia
 {
+	/// <summary>
+	/// separate component which controlls the logic on whether an answer is correct or wonrg.
+	/// </summary>
 	public class AnswerController
 	{
 
