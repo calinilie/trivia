@@ -11,89 +11,34 @@ namespace TriviaTest
 		[TestMethod]
 		public void TwoPlayerRoll()
 		{
-			Game = new TwoPlayerRollGameConfiguration().StartGame();
+			Game = new GameConfiguration().StartGame(
+				delegate { }, 
+				CALIN_PLAYER, JOHN_PLAYER);
+			 AnswerController answerController = new AnswerController(Game.GiveCorrectAnswerAndCheckIfNOTWinner, Game.wrongAnswer);
 
 			Assert.AreEqual(CalinPayerIndex, Game.CurrentPlayer);
 			Game.Roll(3);
+			answerController.GiveAnswer(new Random().Next(9));
 			Assert.AreEqual(JohnPlayerIndex, Game.CurrentPlayer);
 				
 		}
-
-#region two player roll subclasses
-		class TwoPlayerRollGameConfiguration : GameConfiguration
-		{
-			public Game StartGame()
-			{
-				Game game = new TwoPlayerRollGame(delegate { });
-				game.add(CALIN_PLAYER);
-				game.add(JOHN_PLAYER);
-				return game;
-			}
-		}
-
-		class TwoPlayerRollGame : Game
-		{
-			public TwoPlayerRollGame(Action<string> actionHandler) 
-				: base(actionHandler)
-			{
-			}
-
-			public override void Roll(int roll)
-			{
-				base.Roll(roll);
-				if (roll%3 == 0)
-					GiveCorrectAnswerAndCheckIfNOTWinner();
-				else
-					wrongAnswer();
-			}
-		}
-#endregion
 
 
 		[TestMethod]
 		public void ThreePlayerRoll()
 		{
-			Game = new ThreePlayerRollGameConfiguration().StartGame();
+			Game = new GameConfiguration().StartGame(
+							delegate { },
+							CALIN_PLAYER, JOHN_PLAYER, ANDREW_PLAYER);
+			AnswerController answerController = new AnswerController(Game.GiveCorrectAnswerAndCheckIfNOTWinner, Game.wrongAnswer);
 
 			Game.Roll(4);
+			answerController.GiveAnswer(new Random().Next(9));
 			Game.Roll(3);
+			answerController.GiveAnswer(new Random().Next(9));
 
 			Assert.AreEqual(AndrewPlayerIndex, Game.CurrentPlayer);
 		}
-
-
-#region three player roll 
-
-		class ThreePlayerRollGameConfiguration : GameConfiguration
-		{
-			public Game StartGame()
-			{
-				Game game = new ThreePlayerRollGame();
-				game.add(CALIN_PLAYER);
-				game.add(JOHN_PLAYER);
-				game.add(ANDREW_PLAYER);
-				return game;
-			}
-		}
-
-		class ThreePlayerRollGame : Game
-		{
-			public ThreePlayerRollGame()
-				: base(delegate { })
-			{
-			}
-
-			public override void Roll(int roll)
-			{
-				base.Roll(roll);
-				if (roll % 3 == 0)
-					GiveCorrectAnswerAndCheckIfNOTWinner();
-				else
-					wrongAnswer();
-			}
-		}
-
-#endregion
 
 	}
 }

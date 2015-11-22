@@ -20,6 +20,7 @@ namespace Trivia
 				CreateFile(i, mySeed, input.Iteration);
 
 				Game aGame = new Game(Console.WriteLine);
+				AnswerController answerController = new AnswerController(aGame.GiveCorrectAnswerAndCheckIfNOTWinner, aGame.wrongAnswer);
 
 				aGame.add("Chet");
 				aGame.add("Pat");
@@ -32,14 +33,7 @@ namespace Trivia
 					{
 						aGame.Roll(rand.Next(5) + 1);
 
-						if (rand.Next(9) == 7)
-						{
-							_notAWinner = aGame.wrongAnswer();
-						}
-						else
-						{
-							_notAWinner = aGame.GiveCorrectAnswerAndCheckIfNOTWinner();
-						}
+						_notAWinner = answerController.GiveAnswer(rand.Next(9));
 					} while (_notAWinner);
 				}
 				catch (Exception ex)
