@@ -8,48 +8,48 @@ namespace TriviaTest
 	[TestClass]
 	public class SinglePlayerRollDiceTest
 	{
-		private Game undertest;
-		int onlyPlayerIndex = 0;
-		string onlyPlayer = "Calin";
+		private Game _undertest;
+		private int onlyPlayerIndex = 0;
+		private const string ONLY_PLAYER = "Calin";
 
 		[TestInitialize]
-		public void Setup()
+		public virtual void Setup()
 		{
-			undertest = new GameConfiguration()
+			_undertest = new GameConfiguration()
 				.StartGame(
-					eventHandler: delegate { }, 
-					players: onlyPlayer);
+					eventHandler: delegate { },
+					players: ONLY_PLAYER);
 		}
-
+ 
 		[TestMethod]
 		public void RollFourTest()
 		{
 			int diceRoll = 4;
 
-			undertest.Roll(diceRoll);
+			_undertest.Roll(diceRoll);
 
-			Assert.AreEqual(undertest.Places[onlyPlayerIndex], diceRoll);
+			Assert.AreEqual(_undertest.Places[onlyPlayerIndex], diceRoll);
 		}
 
 		[TestMethod]
 		public void IsPlayerInPenaltyBoxTest()
 		{
 			int diceRoll = 4;
-			undertest.Roll(diceRoll);
-			Assert.AreEqual(undertest.InPenaltyBox[onlyPlayerIndex], false);
+			_undertest.Roll(diceRoll);
+			Assert.AreEqual(_undertest.InPenaltyBox[onlyPlayerIndex], false);
 		}
 
 		[TestMethod]
 		public void AskQuestionAfterRollTest()
 		{
-			var numberOfQuestions = undertest.PopQuestions.Count + undertest.RockQuestions.Count +
-			                        undertest.ScienceQuestions.Count + undertest.SportsQuestions.Count;
+			var numberOfQuestions = _undertest.PopQuestions.Count + _undertest.RockQuestions.Count +
+			                        _undertest.ScienceQuestions.Count + _undertest.SportsQuestions.Count;
 			int diceRoll = 4;
-			undertest.Roll(diceRoll);
+			_undertest.Roll(diceRoll);
 
 
-			var newNumberOfQuestions = undertest.PopQuestions.Count + undertest.RockQuestions.Count +
-									undertest.ScienceQuestions.Count + undertest.SportsQuestions.Count;
+			var newNumberOfQuestions = _undertest.PopQuestions.Count + _undertest.RockQuestions.Count +
+									_undertest.ScienceQuestions.Count + _undertest.SportsQuestions.Count;
 			Assert.IsTrue(newNumberOfQuestions == numberOfQuestions - 1);
 		}
 

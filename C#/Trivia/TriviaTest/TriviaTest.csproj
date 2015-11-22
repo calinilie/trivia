@@ -50,10 +50,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BaseTest.cs" />
+    <Compile Include="MultiPlayerBaseTest.cs" />
     <Compile Include="SinglePlayerRollDiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CorrectAnswerTest.cs" />
+    <Compile Include="MultiPlayerRollDiceTest.cs" />
     <Compile Include="WrongAnswerTest.cs" />
   </ItemGroup>
   <ItemGroup>

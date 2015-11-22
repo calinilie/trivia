@@ -6,8 +6,10 @@ using System.Text;
 namespace UglyTrivia
 {
     public class Game
-    {
-	    readonly List<string> _players = new List<string>();
+	{
+
+#region props
+		readonly List<string> _players = new List<string>();
 
 	    readonly int[] _places = new int[6];
 		public int[] Places
@@ -66,9 +68,7 @@ namespace UglyTrivia
 
 	    private readonly Action<string> _actionHandler;
 
-
-
-
+#endregion props
 
         public Game(Action<string> actionHandler)
         {
@@ -95,8 +95,6 @@ namespace UglyTrivia
 
         public bool add(String playerName)
         {
-
-
             _players.Add(playerName);
             _places[howManyPlayers()] = 0;
             _goldCoinPurses[howManyPlayers()] = 0;
@@ -112,14 +110,15 @@ namespace UglyTrivia
             return _players.Count;
         }
 
-        public void Roll(int roll)
+        public virtual void Roll(int roll)
         {
             _actionHandler(_players[_currentPlayer] + " is the current player");
             _actionHandler("They have rolled a " + roll);
 
-            if (_inPenaltyBox[_currentPlayer])
-            {
-                if (roll % 2 != 0)
+			#region playerInPenalyBix
+			if (_inPenaltyBox[_currentPlayer])
+			{
+				if (roll % 2 != 0)
                 {
                     _isGettingOutOfPenaltyBox = true;
 
@@ -138,9 +137,9 @@ namespace UglyTrivia
                     _actionHandler(_players[_currentPlayer] + " is not getting out of the penalty box");
                     _isGettingOutOfPenaltyBox = false;
                 }
-
-            }
-            else
+			}
+			#endregion
+			else
             {
                 _places[_currentPlayer] = _places[_currentPlayer] + roll;
                 if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
@@ -151,7 +150,6 @@ namespace UglyTrivia
                 _actionHandler("The category is " + currentCategory());
                 askQuestion();
             }
-
         }
 
         private void askQuestion()

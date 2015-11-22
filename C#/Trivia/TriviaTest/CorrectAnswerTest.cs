@@ -6,17 +6,13 @@ using UglyTrivia;
 namespace TriviaTest
 {
 	[TestClass]
-	public class CorrectAnswerTest : BaseTest
+	public class CorrectAnswerTest : MultiPlayerBaseTest
 	{
 
-		private int _player1Index = 0;
-		private int _player2Index = 1;
-
 		[TestInitialize]
-		public override void Setup()
+		public void Setup()
 		{
-			base.Setup();
-			Game = new GameConfiguration().StartGame(delegate { }, "Calin", "John Doe");
+			Game = new GameConfiguration().StartGame(delegate { }, CALIN_PLAYER, JOHN_PLAYER);
 		}
 
 		[TestMethod]
@@ -24,14 +20,14 @@ namespace TriviaTest
 		{
 			Game.GiveCorrectAnswerAndCheckIfNOTWinner();
 			
-			Assert.AreEqual(1, Game.GoldCoinPurses[_player1Index]);
+			Assert.AreEqual(1, Game.GoldCoinPurses[CalinPayerIndex]);
 		}
 
 		[TestMethod]
 		public void PlayerStartsWithNoGoldCoins()
 		{
-			Assert.AreEqual(0, Game.GoldCoinPurses[_player1Index]);
-			Assert.AreEqual(0, Game.GoldCoinPurses[_player2Index]);
+			Assert.AreEqual(0, Game.GoldCoinPurses[CalinPayerIndex]);
+			Assert.AreEqual(0, Game.GoldCoinPurses[JohnPlayerIndex]);
 		}
 
 		[TestMethod]
