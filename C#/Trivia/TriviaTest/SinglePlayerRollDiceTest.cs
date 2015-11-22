@@ -17,8 +17,9 @@ namespace TriviaTest
 		{
 			_undertest = new GameConfiguration()
 				.StartGame(
-					eventHandler: delegate { },
-					players: ONLY_PLAYER);
+					delegate { },
+					null,
+					ONLY_PLAYER);
 		}
  
 		[TestMethod]

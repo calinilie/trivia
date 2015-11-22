@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnswerController.cs" />
+    <Compile Include="IPlayersController.cs" />
+    <Compile Include="PlayersController.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameConfiguration.cs" />
     <Compile Include="GameRunner.cs" />

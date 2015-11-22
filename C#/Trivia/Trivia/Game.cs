@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Trivia;
 
 namespace UglyTrivia
 {
@@ -67,12 +68,14 @@ namespace UglyTrivia
 	    }
 
 	    private readonly Action<string> _actionHandler;
+	    private readonly IPlayersController _playersController;
 
 #endregion props
 
-        public Game(Action<string> actionHandler)
+        public Game(Action<string> actionHandler, IPlayersController playerController)
         {
 	        _actionHandler = actionHandler;
+	        _playersController = playerController;
 
 	        for (int i = 0; i < 50; i++)
             {
@@ -225,6 +228,7 @@ namespace UglyTrivia
 
 	    private void NextPlayersTurn()
 	    {
+			_playersController.NextPlayerTurn();
 			_currentPlayer++;
 			if (_currentPlayer == _players.Count) _currentPlayer = 0;
 	    }

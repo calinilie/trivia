@@ -12,7 +12,7 @@ namespace TriviaTest
 		[TestInitialize]
 		public void Setup()
 		{
-			Game = new GameConfiguration().StartGame(delegate { }, CALIN_PLAYER, JOHN_PLAYER);
+			Game = new GameConfiguration().StartGame(delegate { }, null, CALIN_PLAYER, JOHN_PLAYER);
 		}
 
 		[TestMethod]

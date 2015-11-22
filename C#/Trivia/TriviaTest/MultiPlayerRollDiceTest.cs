@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Trivia;
-using UglyTrivia;
 
 namespace TriviaTest
 {
@@ -13,6 +12,7 @@ namespace TriviaTest
 		{
 			Game = new GameConfiguration().StartGame(
 				delegate { }, 
+				null,
 				CALIN_PLAYER, JOHN_PLAYER);
 			 AnswerController answerController = new AnswerController(Game.GiveCorrectAnswerAndCheckIfNOTWinner, Game.wrongAnswer);
 
@@ -29,6 +29,7 @@ namespace TriviaTest
 		{
 			Game = new GameConfiguration().StartGame(
 							delegate { },
+							null,
 							CALIN_PLAYER, JOHN_PLAYER, ANDREW_PLAYER);
 			AnswerController answerController = new AnswerController(Game.GiveCorrectAnswerAndCheckIfNOTWinner, Game.wrongAnswer);
 

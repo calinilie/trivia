@@ -19,7 +19,7 @@ namespace Trivia
 				int mySeed = input.Seed + i*313;
 				CreateFile(i, mySeed, input.Iteration);
 
-				Game aGame = new Game(Console.WriteLine);
+				Game aGame = new Game(Console.WriteLine, new PlayersController(3));
 				AnswerController answerController = new AnswerController(aGame.GiveCorrectAnswerAndCheckIfNOTWinner, aGame.wrongAnswer);
 
 				aGame.add("Chet");
